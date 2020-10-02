@@ -35,11 +35,13 @@ module.exports = {
                         ++quantFiltered;
                     }
 
-                    if (iterator === array.length - 1) resolve(modifiedArray);
+                    if (iterator === array.length - 1) {
+                        console.log(chalk`{bgCyan INFO} {bold - ${quantFiltered} tweet/s have been filtered and isn't/aren't going to be deleted}`);
+                        resolve(modifiedArray);
+                    } 
                 });
             }
         })
-        .then(() => console.log(chalk`{bgCyan INFO} {bold - ${quantFiltered} tweet/s have been filtered and isn't/aren't going to be deleted}`))
         .catch((err) => module.exports.error(err));
     }
 }

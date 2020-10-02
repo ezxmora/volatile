@@ -1,7 +1,7 @@
 // Required modules
 const { twitConfig, screen_name, likesLimit, retweetLimit } = require('./config');
 const { isOlder, omitSaved, error } = require('./helpers');
-const Twit = require('Twit');
+const Twit = require('twit');
 const chalk = require('chalk');
 
 // Instantiation of Twit

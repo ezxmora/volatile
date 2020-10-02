@@ -17,6 +17,7 @@ module.exports = {
     },
 
     omitSaved: (tweetList) => {
+        let quantFiltered = 0;
         return new Promise((resolve, reject) => {
             if (!fs.existsSync(`${savedTweetsFilename}.json`)) {
                 fs.writeFileSync(`${savedTweetsFilename}.json`, '{"tweets":[]}', (err) => {
@@ -30,12 +31,15 @@ module.exports = {
                 tweetList.forEach((tweetID, iterator, array) => {
                     if (!savedTweetsJSON.tweets.includes(tweetID)) {
                         modifiedArray.push(tweetID);
+                    } else {
+                        ++quantFiltered;
                     }
 
                     if (iterator === array.length - 1) resolve(modifiedArray);
                 });
             }
         })
+        .then(() => console.log(chalk`{bgCyan INFO} {bold - ${quantFiltered} tweet/s have been filtered and isn't/aren't going to be deleted}`))
         .catch((err) => module.exports.error(err));
     }
 }

@@ -18,8 +18,12 @@ if (config.error) {
         if (config.parsed[key].trim().length <= 0 || config.parsed[key].includes('YOU')) {
             return error(`You didn't configure ${key} in the configuration file.`);
         }
-    }
+    } 
     
-    require('./src/deleteTweet');
-    require('./src/deleteRetweet');
+    if (isNaN(process.env.RT_LIMIT) && isNaN(process.env.LIKES_LIMIT) && isNaN(process.env.VOLATILITY_DAYS)) {
+        return error('RT_LIMIT, LIKES_LIMIT or VOLATILITY_DAYS is not a number');
+    } else {
+        require('./src/deleteTweet');
+        require('./src/deleteRetweet');
+    }
 }

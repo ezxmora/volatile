@@ -22,7 +22,7 @@ function getTweets() {
         new Promise((resolve, reject) => {
             let tweetIDs = [];
             tweets.forEach((tweet, iterator, array) => {
-                if (tweet.retweet_count < retweetLimit || tweet.favorite_count < likesLimit ) {
+                if (tweet.retweet_count < parseInt(retweetLimit) || tweet.favorite_count < parseInt(likesLimit) ) {
                     if (isOlder(Date.parse(tweet.created_at))) {
                         tweetIDs.push(tweet.id_str);
                     }

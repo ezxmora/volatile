@@ -2,7 +2,7 @@
 
 // Required modules
 const fs = require('fs');
-const config = require('dotenv').config({ path: './config.env' });
+const config = require('dotenv').config({ path: __dirname + '/config.env' });
 const { error } = require('./src/helpers');
 const chalk = require('chalk');
 

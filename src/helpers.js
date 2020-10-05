@@ -19,8 +19,8 @@ module.exports = {
     omitSaved: (tweetList) => {
         let quantFiltered = 0;
         return new Promise((resolve, reject) => {
-            if (!fs.existsSync(`${savedTweetsFilename}.json`)) {
-                fs.writeFileSync(`${savedTweetsFilename}.json`, '{"tweets":[]}', (err) => {
+            if (!fs.existsSync(`${__dirname}/${savedTweetsFilename}.json`)) {
+                fs.writeFileSync(`${__dirname}/${savedTweetsFilename}.json`, '{"tweets":[]}', (err) => {
                     if (err) return module.exports.error(err);
                     reject(console.log(chalk`{bgCyan INFO} {bold - ${savedTweetsFilename}.json has been created}`));
                 });

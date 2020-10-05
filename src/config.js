@@ -1,6 +1,3 @@
-// Required modules
-require('dotenv').config();
-
 module.exports = {
     twitConfig: {
         consumer_key: process.env.CONSUMER_KEY,

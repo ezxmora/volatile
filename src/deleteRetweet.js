@@ -29,13 +29,13 @@ function getRetweets() {
                     retweetDelete = retweetIDs.length;
                     resolve(retweetIDs);
                 }
-            })
+            });
         })
         .then((filterRetweets) => {
             filterRetweets.forEach((filtered) => {
                 bot.post('statuses/unretweet/:id', {id: filtered}, (err, data, response) => {
                     if (err) error(err);
-                })
+                });
             });
         })
         .then(() => console.log(chalk`{bgCyan INFO} {bold - ${retweetDelete} tweet/s were unretweeted.}`))

@@ -12,7 +12,7 @@ let tweetCount = 0;
 let tweetDelete = 0;
 
 function getTweets() {
-    bot.get('statuses/user_timeline', { screen_name, count: 200, include_rts: 0}, timelineProccessing);
+    bot.get('statuses/user_timeline', { screen_name, count: 200, include_rts: 0 }, timelineProccessing);
 
     function timelineProccessing(err, tweets) {
         if (err) return error(err);
@@ -21,18 +21,18 @@ function getTweets() {
 
         new Promise((resolve, reject) => {
             let tweetIDs = [];
-            tweets.forEach((tweet, iterator, array) => {
-                if (tweet.favorite_count < parseInt(likesLimit, 10) && tweet.retweet_count < parseInt(retweetLimit, 10)) {
-                    if (isOlder(Date.parse(tweet.created_at))) {
-                        tweetIDs.push(tweet.id_str);
-                    }
-
-                    if (iterator === array.length - 1) {
-                        tweetDelete = tweetIDs.length;
-                        resolve(tweetIDs);
+            for (let i = 0; i < tweetCount; i++) {
+                if (tweets[i].favorite_count < likesLimit && tweets[i].retweet_count < retweetLimit) {
+                    if (isOlder(Date.parse(tweets[i].created_at))) {
+                        tweetIDs.push(tweets[i].id_str);
                     }
                 }
-            });
+
+                if (i == tweetCount - 1) {
+                    tweetDelete = tweetIDs.length;
+                    resolve(tweetIDs);
+                }
+            }
         })
         .then((filterTweets) => {
             // Omits saved tweets in a JSON
@@ -51,4 +51,4 @@ function getTweets() {
     }
 }
 
-module.exports = getTweets();
+exports.getTweets = getTweets;

@@ -10,8 +10,8 @@ const bot = new Twit(twitConfig);
 // Variable stores
 let retweetDelete = 0;
 
-function getRetweets() {
-    bot.get('statuses/user_timeline', { screen_name, count: 200, include_rts: 1 }, timelineProccessing);
+async function getRetweets() {
+    await bot.get('statuses/user_timeline', { screen_name, count: 200, include_rts: 1 }, timelineProccessing);
 
     function timelineProccessing(err, retweets) {
         if (err) return error(err);
@@ -43,4 +43,4 @@ function getRetweets() {
     }
 }
 
-module.exports = getRetweets();
+exports.getRetweets = getRetweets;

@@ -6,8 +6,8 @@ module.exports = {
         access_token_secret: process.env.ACCESS_SECRET,
     },
     screen_name: process.env.SCREEN_NAME,
-    retweetLimit: process.env.RT_LIMIT,
-    likesLimit: process.env.LIKES_LIMIT,
-    volatility: process.env.VOLATILITY_DAYS,
+    retweetLimit: parseInt(process.env.RT_LIMIT, 10),
+    likesLimit: parseInt(process.env.LIKES_LIMIT, 10),
+    volatility: parseInt(process.env.VOLATILITY_DAYS, 10),
     savedTweetsFilename: process.env.SAVED_TWEET_FILENAME
 }

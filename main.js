@@ -1,10 +1,10 @@
 // Required modules
 const fs = require('fs');
 const config = require('dotenv').config({ path: __dirname + '/config.env' });
-const { error } = require('./src/helpers');
+const { error } = require('./src/modules/helpers');
 const chalk = require('chalk');
-const { getTweets } = require('./src/deleteTweet');
-const { getRetweets } = require('./src/deleteRetweet');
+const { getTweets } = require('./src/modules/deleteTweet');
+const { getRetweets } = require('./src/modules/deleteRetweet');
 
 if (config.error) {
     const envConfig = `CONSUMER_KEY='YOUR CONSUMER KEY'\nCONSUMER_SECRET='YOUR CONSUMER SECRET'\nACCESS_TOKEN='YOUR ACCESS TOKEN'\nACCESS_SECRET='YOUR ACCESS SECRET'\nSCREEN_NAME='YOUR TWITTER @'\nRT_LIMIT=<LIMIT OF MINIMUM RTs YOU WANT TO SET>\nLIKES_LIMIT=<LIMIT OF MINIMUM LIKES YOU WANT TO SET>\nVOLATILITY_DAYS=<NUMBER OF TWEETS LIFETIME>\nSAVED_TWEET_FILENAME='THE NAME USED FOR THE FILE OF YOUR SAVED TWEETS'\nALL YOU HAD TO DO WAS CREATE THE DAMN CONFIG FILE CJ (Delete this line :D)\n`;

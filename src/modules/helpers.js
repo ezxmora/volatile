@@ -1,5 +1,5 @@
 // Required modules
-const { volatility, savedTweetsFilename } = require('./config');
+const { volatility, savedTweetsFilename } = require('../config');
 const fs = require('fs');
 const chalk = require('chalk');
 
@@ -14,6 +14,10 @@ module.exports = {
 
     error: (err) => {
         return console.log(chalk`{bgRed ERROR} {bold - There was an error :(} \n\t${err}`);
+    },
+
+    info: (msg) => {
+        return console.log(chalk`{bgCyan INFO} {bold - ${msg}}`);
     },
 
     omitSaved: (tweetList) => {

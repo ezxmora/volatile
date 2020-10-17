@@ -1,6 +1,6 @@
 // Required modules
 const { isOlder, error } = require('./helpers');
-const { twitConfig, screen_name } = require('./config');
+const { twitConfig, screen_name } = require('../config');
 const Twit = require('twit');
 const chalk = require('chalk');
 
@@ -10,8 +10,8 @@ const bot = new Twit(twitConfig);
 // Variable stores
 let retweetDelete = 0;
 
-async function getRetweets() {
-    await bot.get('statuses/user_timeline', { screen_name, count: 200, include_rts: 1 }, timelineProccessing);
+function getRetweets() {
+    bot.get('statuses/user_timeline', { screen_name, count: 200, include_rts: 1 }, timelineProccessing);
 
     function timelineProccessing(err, retweets) {
         if (err) return error(err);
@@ -33,9 +33,9 @@ async function getRetweets() {
         })
         .then((filterRetweets) => {
             filterRetweets.forEach((filtered) => {
-                bot.post('statuses/unretweet/:id', {id: filtered}, (err, data, response) => {
+                /*bot.post('statuses/unretweet/:id', {id: filtered}, (err, data, response) => {
                     if (err) error(err);
-                });
+                });*/
             });
         })
         .then(() => console.log(chalk`{bgCyan INFO} {bold - ${retweetDelete} tweet/s were unretweeted.}`))

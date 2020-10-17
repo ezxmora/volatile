@@ -1,5 +1,5 @@
 // Required modules
-const { twitConfig, screen_name, likesLimit, retweetLimit } = require('./config');
+const { twitConfig, screen_name, likesLimit, retweetLimit } = require('../config');
 const { isOlder, omitSaved, error } = require('./helpers');
 const Twit = require('twit');
 const chalk = require('chalk');
@@ -39,9 +39,9 @@ function getTweets() {
             omitSaved(filterTweets)
                 .then((filteredTweets) => {
                     filteredTweets.forEach((filtered) => {
-                        bot.post('statuses/destroy/:id', {id: filtered}, (err, data, response) => {
+                        /*bot.post('statuses/destroy/:id', {id: filtered}, (err, data, response) => {
                             if (err) error(err);
-                        });
+                        });*/
                     });
                 })
                 .catch((err) => error(err));

@@ -11,8 +11,8 @@ auth = {
 }
 
 config = {
-    'screen_name': 'Eriknaitor',
-    'volatility': 7,
-    'rt_limit': 3,
-    'likes_limit': 3,
+    'screen_name': 'YOUR @ HERE',
+    'volatility': 7,  # 7 Days
+    'rt_limit': 50,  # Keep all YOUR tweets with at least n retweets
+    'likes_limit': 200,  # Keep all YOUR tweets with at least n likes
 }

@@ -153,6 +153,6 @@ class Volatile:
         if len(final_string) > 0:
             print(final_string)
             if sendTweet:
-                status_id = api.update_status(final_string + '🔗 More info @: https://github.com/ezxmora/volatile').id_str
+                status_id = api.update_status(final_string + '\n\n🔗 More info @: https://github.com/ezxmora/volatile').id_str
                 print('Your tweet report is here: https://twitter.com/%s/status/%s' %
                       (screen_name, status_id))

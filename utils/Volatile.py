@@ -5,6 +5,7 @@ import tweepy
 
 screen_name = config['screen_name']
 
+
 class Volatile:
     def __init__(self, authentication_dict):
         self.consumer_key = authentication_dict['consumer_key']
@@ -25,13 +26,13 @@ class Volatile:
         api = self.__auth()
         tweet_list = []
         tweets = api.user_timeline(
-            screen_name=screen_name, count=200, include_rts=rts, exclude_replies=replies)
+            screen_name=screen_name, count=200, include_rts=rts)
         tweet_list.extend(tweets)
         oldest_id = tweet_list[-1].id - 1
 
         while len(tweets) > 0:
             tweets = api.user_timeline(
-                screen_name=screen_name, count=200, max_id=oldest_id, include_rts=rts, exclude_replies=replies)
+                screen_name=screen_name, count=200, max_id=oldest_id, include_rts=rts)
             tweet_list.extend(tweets)
             oldest_id = tweet_list[-1].id - 1
             time.sleep(1)
@@ -48,17 +49,15 @@ class Volatile:
         api = self.__auth()
 
         likes_list = []
-        page = 0
-        likes = api.favorites(screen_name=screen_name, count=200, page=page)
+        likes = api.get_favorites(screen_name=screen_name, count=200)
         likes_list.extend(likes)
-        number_pages = round(api.get_user(
-            screen_name=screen_name).favourites_count / 200) + 1
+        oldest_id = likes_list[-1].id - 1
 
-        while page < number_pages:
-            likes = api.favorites(screen_name=screen_name,
-                                  count=200, page=page)
+        while len(likes) > 0:
+            likes = api.get_favorites(
+                screen_name=screen_name, count=200, max_id=oldest_id)
             likes_list.extend(likes)
-            page = page + 1
+            oldest_id = likes_list[-1].id - 1
             time.sleep(1)
 
         return [{
@@ -153,6 +152,7 @@ class Volatile:
         if len(final_string) > 0:
             print(final_string)
             if sendTweet:
-                status_id = api.update_status(final_string + '\n\n🔗 More info @: https://github.com/ezxmora/volatile').id_str
+                status_id = api.update_status(
+                    final_string + '\n\n🔗 More info @: https://github.com/ezxmora/volatile').id_str
                 print('Your tweet report is here: https://twitter.com/%s/status/%s' %
                       (screen_name, status_id))

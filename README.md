@@ -26,15 +26,11 @@ __I take no responsibility for erroneously deleted tweets__
     CONSUMER_SECRET= Your consumer key secret
     ACCESS_TOKEN= Your access token
     ACCESS_SECRET= Your access token secret
-    ```
-  * Modify [config.py](utils/config.py#L13-L18) `config` dictionary with your settings
-    ```Python
-      config = {
-        'screen_name': 'YOUR @ HERE',
-        'volatility': 7, # 7 Days
-        'rt_limit': 50, # Keep all YOUR tweets with at least n retweets
-        'likes_limit': 200, # Keep all YOUR tweets with at least n likes 
-      }
+    SCREEN_NAME= Your Twitter handle (@)
+    RT_LIMIT= Threshold of YOUR retweets which are going to be deleted
+    LIKES_LIMIT= Threshold of YOUR likes which are going to be deleted
+    VOLATILITY_DAYS= Minimum days of for a tweet to not getting delered
+    PINNED_TWEET_ID= ID of your pinned tweet
     ```
   * For starting the bot run `python run.py`
 

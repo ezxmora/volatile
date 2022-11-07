@@ -11,8 +11,9 @@ auth = {
 }
 
 config = {
-    'screen_name': 'YOUR @ HERE',
-    'volatility': 7,  # 7 Days
-    'rt_limit': 50,  # Keep all YOUR tweets with at least n retweets
-    'likes_limit': 200,  # Keep all YOUR tweets with at least n likes
+    'screen_name': getenv('SCREEN_NAME'),
+    'volatility': int(getenv('VOLATILITY_DAYS')),  # 7 Days
+    'rt_limit': int(getenv('RT_LIMIT')),  # Keep all YOUR tweets with at least n retweets
+    'likes_limit': int(getenv('LIKES_LIMIT')),  # Keep all YOUR tweets with at least n likes
+    'pinned': getenv('PINNED_TWEET_ID')
 }

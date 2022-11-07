@@ -1,10 +1,10 @@
 import time
 from utils.helpers import is_older
 from utils.config import config
+from halo import Halo
 import tweepy
 
 screen_name = config['screen_name']
-
 
 class Volatile:
     def __init__(self, authentication_dict):
@@ -67,31 +67,38 @@ class Volatile:
             'text': like.text
         } for like in likes_list]
 
+    @Halo(text='Wiping tweets...', spinner={
+        'interval': 100,
+        'frames': ['/', '-', '\\', '|', '/', '-', '\\', '/']
+    })
     def deletetweets(self):
         api = self.__auth()
         tweets = self.__gettweets(False, True)
         deleted = 0
         skipped = 0
 
-        print('Wiping tweets...')
         for i in range(len(tweets)):
             if is_older(tweets[i]['date']):
                 if tweets[i]['retweets'] < config['rt_limit'] and tweets[i]['likes'] < config['likes_limit']:
-                    deleted = deleted + 1
-                    api.destroy_status(tweets[i]['id'])
-                    time.sleep(0.5)
-            else:
-                skipped = skipped + 1
+                    if tweets[i]['id'] != config['pinned']:
+                        api.destroy_status(tweets[i]['id'])
+                        deleted = deleted + 1
+                        time.sleep(0.5)
+                    else:
+                        skipped = skipped + 1
 
         self.__data_tweets = [deleted, skipped]
 
+    @Halo(text='Wiping retweets...', spinner={
+        'interval': 100,
+        'frames': ['/', '-', '\\', '|', '/', '-', '\\', '/']
+    })
     def deleteretweets(self):
         api = self.__auth()
         tweets = self.__gettweets(True)
         deleted = 0
         skipped = 0
 
-        print('Wiping retweets...')
         for i in range((len(tweets))):
             if is_older(tweets[i]['date']):
                 if tweets[i]['retweeted']:
@@ -109,13 +116,16 @@ class Volatile:
 
         self.__data_retweets = [deleted, skipped]
 
+    @Halo(text='Wiping likes...', spinner={
+        'interval': 100,
+        'frames': ['/', '-', '\\', '|', '/', '-', '\\', '/']
+    })
     def deletelikes(self):
         api = self.__auth()
         likes = self.__getlikes()
         deleted = 0
         skipped = 0
 
-        print('Wiping likes...')
         for i in range(len(likes)):
             if (is_older(likes[i]['date'])):
                 if (likes[i]['favorited']):
